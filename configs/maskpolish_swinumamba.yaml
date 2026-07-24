@@ -1,0 +1,66 @@
+# MaskPolish-SwinUMamba Configuration Template
+
+model:
+  name: FGLRSwinUMamba
+  in_channels: 3
+  num_classes: 2
+  deep_supervision: true
+  ds_weights: [1.0, 0.5, 0.25, 0.125]
+  feat_size: [48, 96, 192, 384, 768]
+  hidden_size: 768
+  depths: [2, 2, 9, 2]
+  d_state: 16
+  drop_path_rate: 0.2
+  norm_name: instance
+  da_ss2d_group_size: 96
+  da_ss2d_hidden_size: null
+  fglr:
+    crop_size: 128
+    hidden_channels: 24
+    threshold: 0.5
+    min_area: 16
+    margin_ratio: 0.1
+    overlap_mode: mean
+    instance_batch_size: 16
+    use_checkpoint: true
+
+data:
+  manifest_json: "/path/to/dataset/manifest.json"
+  splits_json: "/path/to/dataset/splits.json"
+  image_size: [256, 256]
+  num_workers: 4
+  pin_memory: true
+  persistent_workers: true
+  cache_in_memory: true
+  val_batch_size: null
+
+training:
+  seed: 42
+  fold: 0
+  num_epochs: 200
+  batch_size: 16
+  initial_lr: 7.0e-4
+  warmup_epochs: 15
+  eta_min: 1.0e-5
+  weight_decay: 1.0e-4
+  grad_clip: 12.0
+  min_delta: 1.0e-4
+  loss_ce_weight: 0.5
+  ema_alpha: 0.9
+  fglr_start_epoch: 30
+  base_loss_alpha: 1.0
+  fglr_loss_alpha: 1.0
+  cam_loss_threshold_metric: dice
+  cam_loss_start_threshold: null
+  grad_cam_alpha: 0.05
+  layer_cam_gamma: 0.05
+  cam_eps: 1.0e-6
+  cam_foreground_channel: 1
+  cam_target: backbone.decoder1
+
+metrics:
+  val: [dice, iou, hd95]
+  val_hd95_interval: 10
+
+output:
+  save_dir: outputs

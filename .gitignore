@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*.so
+
+outputs/
+logs/
+.train_pgid_fold*
+
+.DS_Store
+.idea/
+.vscode/
