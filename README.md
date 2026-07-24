@@ -25,7 +25,7 @@ Create a CUDA-enabled Python environment, then install:
 pip install -r requirements.txt
 ```
 
-## Pre-trained Weights
+## Model Weights
 
 Download pre-trained weights: [Google Drive](https://drive.google.com/file/d/1GdjbsR1zDe6PUpI-K6sNdk7i3F9BJwXP/view?usp=sharing)
 
